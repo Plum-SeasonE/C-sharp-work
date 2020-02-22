@@ -8,6 +8,7 @@ namespace caculator_2
 {
     static class Program
     {
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
