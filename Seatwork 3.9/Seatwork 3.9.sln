@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1022
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seatwork 3.9 01", "Seatwork 3.9 01\Seatwork 3.9 01.csproj", "{4006799F-7C69-4D3D-B473-63072EE79B22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seatwork 3.9 02", "Seatwork 3.9 02\Seatwork 3.9 02.csproj", "{A5842E8A-C238-4543-B205-88F55E36D773}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4006799F-7C69-4D3D-B473-63072EE79B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4006799F-7C69-4D3D-B473-63072EE79B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4006799F-7C69-4D3D-B473-63072EE79B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4006799F-7C69-4D3D-B473-63072EE79B22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5842E8A-C238-4543-B205-88F55E36D773}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5842E8A-C238-4543-B205-88F55E36D773}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5842E8A-C238-4543-B205-88F55E36D773}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5842E8A-C238-4543-B205-88F55E36D773}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9FB2097-9FEF-4838-A993-CA2E7BEFD642}
+	EndGlobalSection
+EndGlobal
