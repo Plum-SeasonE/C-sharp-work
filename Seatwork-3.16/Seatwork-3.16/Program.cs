@@ -25,22 +25,22 @@ namespace Seatwork_3._16
     {
         static void Main(string[] args)
         {
-            OrderItem oi1 = new OrderItem(001, "书本", "A", "B", 1000, 5);
-            OrderItem oi2 = new OrderItem(002, "钢笔", "A", "D", 20000, 8);
-            OrderItem oi3 = new OrderItem(003, "衣服", "A", "F", 50, 100);
-            OrderItem oi4 = new OrderItem(004, "电脑", "G", "H", 30, 4000);
+            OrderItem oi1 = new OrderItem(001, "书本", 1000, 5);
+            OrderItem oi2 = new OrderItem(002, "钢笔",  20000, 8);
+            OrderItem oi3 = new OrderItem(003, "衣服",  50, 100);
+            OrderItem oi4 = new OrderItem(004, "电脑", 30, 4000);
             Console.WriteLine(oi1.ToString());
             Console.WriteLine(oi1.Equals(oi1));
             Console.WriteLine(oi1.Equals(oi2));
-            Order o1 = new Order(1);
-            Order o2 = new Order(2);
+            Order o1 = new Order(1,"A", "B");
+            Order o2 = new Order(2,"A", "D");
             Console.WriteLine(o1.Equals(o1));
             Console.WriteLine(o1.Equals(o2));
             o1.addOrderItems(oi4);
             o1.addOrderItems(oi3);
             o1.addOrderItems(oi2);
             o1.addOrderItems(oi1);
-            var query = o1.orders.Where(s => s.employee == "A").OrderBy(s => s.tradeNum * s.pricePerTrade);
+            var query = o1.orders.OrderBy(s => s.tradeNum * s.pricePerTrade);
             Console.WriteLine("按照订单小项总金额排序:");
             foreach(var x in query)
             {

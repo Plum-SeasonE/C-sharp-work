@@ -9,11 +9,16 @@ namespace Seatwork_3._16
 {
     class Order
     {
-        public Order(int id)
+        public int orderID;
+        public string employee { get; set; }
+        public string custom { get; set; }
+        public Order(int id,string Employee,string Custom)
         {
             orderID = id;
+            employee = Employee;
+            custom = Custom;
         }
-        public int orderID;
+        
         public List<OrderItem> orders = new List<OrderItem>();
         //添加
         public void addOrderItems(OrderItem oi)
@@ -46,7 +51,7 @@ namespace Seatwork_3._16
         }
         public override string ToString()
         {
-            string order="订单项目:\n";
+            string order=$"订单号:{orderID}\t订货人:{custom}\t发货人:{employee}\n";
             foreach(var oi in orders)
             {
                 order += oi.ToString();
