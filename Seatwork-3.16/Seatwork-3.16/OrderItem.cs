@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Seatwork_3._16
 {
-    class OrderItem
+    public class OrderItem
     {
         public int orderItemID { get; set; }
         public string tradeName { get; set; }
        
         public int tradeNum { get; set; }
         public int pricePerTrade { get; set; }
+        public OrderItem() { }
         public OrderItem(int OrderID, string TradeName, int TradeNum, int PricePerTrade = 0)
         {
             orderItemID = OrderID;

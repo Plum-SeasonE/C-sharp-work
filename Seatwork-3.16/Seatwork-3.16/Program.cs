@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,42 +27,50 @@ namespace Seatwork_3._16
         static void Main(string[] args)
         {
             OrderItem oi1 = new OrderItem(001, "书本", 1000, 5);
-            OrderItem oi2 = new OrderItem(002, "钢笔",  20000, 8);
-            OrderItem oi3 = new OrderItem(003, "衣服",  50, 100);
+            OrderItem oi2 = new OrderItem(002, "钢笔", 20000, 8);
+            OrderItem oi3 = new OrderItem(003, "衣服", 50, 100);
             OrderItem oi4 = new OrderItem(004, "电脑", 30, 4000);
-            Console.WriteLine(oi1.ToString());
-            Console.WriteLine(oi1.Equals(oi1));
-            Console.WriteLine(oi1.Equals(oi2));
+            //Console.WriteLine(oi1.ToString());
+            //Console.WriteLine(oi1.Equals(oi1));
+            //Console.WriteLine(oi1.Equals(oi2));
             Order o1 = new Order(1,"A", "B");
             Order o2 = new Order(2,"A", "D");
-            Console.WriteLine(o1.Equals(o1));
-            Console.WriteLine(o1.Equals(o2));
+            //Console.WriteLine(o1.Equals(o1));
+            //Console.WriteLine(o1.Equals(o2));
             o1.addOrderItems(oi4);
             o1.addOrderItems(oi3);
             o1.addOrderItems(oi2);
             o1.addOrderItems(oi1);
-            var query = o1.orders.OrderBy(s => s.tradeNum * s.pricePerTrade);
-            Console.WriteLine("按照订单小项总金额排序:");
-            foreach(var x in query)
-            {
-                Console.WriteLine(x.ToString());
-            }
-            Console.WriteLine(o1.ToString());
-            o1.deleteOrderItems(1);
-            Console.WriteLine(o1.ToString());
-            if(o1.deleteOrderItems(1)==null)
-                Console.WriteLine("删除失败，订单中不存在这一项。");
-            if(o1.searchOrderItems(1)==null)
-                Console.WriteLine("查找失败，订单中不存在这一项。");
-            Console.WriteLine("查找：");
-            Console.WriteLine(o1.searchOrderItems(2).ToString());
-            Console.WriteLine("按订单号排序：");
-            OrderService.sort(o1);
-            Console.WriteLine(o1.ToString());
-            OrderService.sort(o1, (tempoi1, tempoi2) =>
-            tempoi1.tradeNum * tempoi1.pricePerTrade - tempoi2.tradeNum * tempoi2.pricePerTrade);
-            Console.WriteLine("按总金额排序：");
-            Console.WriteLine(o1.ToString());
+            //var query = o1.orders.OrderBy(s => s.tradeNum * s.pricePerTrade);
+            //Console.WriteLine("按照订单小项总金额排序:");
+            //foreach(var x in query)
+            //{
+            //    Console.WriteLine(x.ToString());
+            //}
+            //Console.WriteLine(o1.ToString());
+            //o1.deleteOrderItems(1);
+            //Console.WriteLine(o1.ToString());
+            //if(o1.deleteOrderItems(1)==null)
+            //    Console.WriteLine("删除失败，订单中不存在这一项。");
+            //if(o1.searchOrderItems(1)==null)
+            //    Console.WriteLine("查找失败，订单中不存在这一项。");
+            //Console.WriteLine("查找：");
+            //Console.WriteLine(o1.searchOrderItems(2).ToString());
+            //Console.WriteLine("按订单号排序：");
+            //OrderService.sort(o1);
+            //Console.WriteLine(o1.ToString());
+            //OrderService.sort(o1, (tempoi1, tempoi2) =>
+            //tempoi1.tradeNum * tempoi1.pricePerTrade - tempoi2.tradeNum * tempoi2.pricePerTrade);
+            //Console.WriteLine("按总金额排序：");
+            //Console.WriteLine(o1.ToString());
+
+            OrderService.Export(o1);
+            Console.WriteLine("序列化完成");
+            Console.WriteLine(File.ReadAllText("s.xml"));
+            OrderService.Import(o2);
+            Console.WriteLine("反序列化的结果");
+            Console.WriteLine(o2.ToString());
+            
 
         }
     }

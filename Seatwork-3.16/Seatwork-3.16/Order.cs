@@ -7,23 +7,38 @@ using System.Threading.Tasks;
 
 namespace Seatwork_3._16
 {
-    class Order
+    public class Order
     {
         public int orderID;
         public string employee { get; set; }
         public string custom { get; set; }
+        public Order() { }
         public Order(int id,string Employee,string Custom)
         {
             orderID = id;
             employee = Employee;
             custom = Custom;
         }
-        
+        public Order(Order o)
+        {
+            orderID = o.orderID;
+            employee = o.employee;
+            custom = o.custom;
+            o.addOrderItems(o.orders);
+        }
+
         public List<OrderItem> orders = new List<OrderItem>();
         //添加
         public void addOrderItems(OrderItem oi)
         {
             orders.Add(oi);
+        }
+        public void addOrderItems(List<OrderItem> oi)
+        {
+            foreach(OrderItem oitem in oi)
+            {
+                this.addOrderItems(oitem);
+            }
         }
         //删除
         public OrderItem deleteOrderItems(int OrderID)
