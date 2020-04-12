@@ -10,9 +10,9 @@ namespace Seatwork_3._16
     {
         public int orderItemID { get; set; }
         public string tradeName { get; set; }
-       
         public int tradeNum { get; set; }
         public int pricePerTrade { get; set; }
+
         public OrderItem() { }
         public OrderItem(int OrderID, string TradeName, int TradeNum, int PricePerTrade = 0)
         {
@@ -34,6 +34,15 @@ namespace Seatwork_3._16
         {
             return orderItemID;
         }
-     
+
+        public OrderItem Clone()
+        {
+            OrderItem newOrderItem = new OrderItem();
+            newOrderItem.orderItemID = this.orderItemID;
+            newOrderItem.tradeName = this.tradeName;
+            newOrderItem.tradeNum = this.tradeNum;
+            newOrderItem.pricePerTrade = this.pricePerTrade;
+            return newOrderItem;
+        }
     }
 }

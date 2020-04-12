@@ -12,6 +12,8 @@ namespace Seatwork_3._16
         public int orderID { get; set; }
         public string employee { get; set; }
         public string cumstomer { get; set; }
+        public List<OrderItem> orderItems = new List<OrderItem>();
+
         public Order() { }
         public Order(int id,string Employee,string Customer)
         {
@@ -24,14 +26,14 @@ namespace Seatwork_3._16
             orderID = o.orderID;
             employee = o.employee;
             cumstomer = o.cumstomer;
-            o.addOrderItems(o.orders);
+            o.addOrderItems(o.orderItems);
         }
 
-        public List<OrderItem> orders = new List<OrderItem>();
+        
         //添加
         public void addOrderItems(OrderItem oi)
         {
-            orders.Add(oi);
+            orderItems.Add(oi);
         }
         public void addOrderItems(List<OrderItem> oi)
         {
@@ -43,16 +45,16 @@ namespace Seatwork_3._16
         //删除
         public OrderItem deleteOrderItems(int OrderID)
         {
-            var findOrder = orders.FirstOrDefault(t => t.orderItemID == OrderID);
+            var findOrder = orderItems.FirstOrDefault(t => t.orderItemID == OrderID);
             if (findOrder != null)
-                orders.Remove(findOrder);
+                orderItems.Remove(findOrder);
             return findOrder;
            
         }
         //查找
         public OrderItem searchOrderItems(int OrderID)
         {
-            var findOrder = orders.FirstOrDefault(t => t.orderItemID == OrderID);
+            var findOrder = orderItems.FirstOrDefault(t => t.orderItemID == OrderID);
             return findOrder;
         }
         public override bool Equals(object obj)
@@ -67,12 +69,24 @@ namespace Seatwork_3._16
         public override string ToString()
         {
             string order=$"订单号:{orderID}\t订货人:{cumstomer}\t发货人:{employee}\n";
-            foreach(var oi in orders)
+            foreach(var oi in orderItems)
             {
                 order += oi.ToString();
                 order += "\n";
             }
             return order;
+        }
+        public Order Clone()
+        {
+            Order newOrder = new Order();
+            newOrder.orderID = this.orderID;
+            newOrder.cumstomer = this.cumstomer;
+            newOrder.employee = this.employee;
+            for (int i = 0; i < this.orderItems.Count; i++)
+            {
+                newOrder.addOrderItems((OrderItem)this.orderItems[i].Clone());
+            }
+            return newOrder;
         }
     }
 }

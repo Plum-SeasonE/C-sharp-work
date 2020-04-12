@@ -1,4 +1,4 @@
-﻿using System;
+﻿     using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,31 +12,81 @@ namespace Seatwork_3._16
     //2、对订单程序中OrderService的各个Public方法添加测试用例
     public class OrderService
     {
-        public static void sort(Order o)
+        //订单集合
+        private List<Order> orders;
+        //构造函数
+        public OrderService()
         {
-            o.orders.Sort((oi1,oi2)=>oi1.orderItemID-oi2.orderItemID);
+            orders = new List<Order>();
         }
-        public  static void sort(Order o,Func<OrderItem,OrderItem,int> f)
+        //用于外界获取orders
+        public List<Order> Orders
         {
-            o.orders.Sort((o1, o2) => f(o1, o2));
+            get => orders;
         }
-        public static void Export(Order o)
+        //通过订单ID获取订单
+        public Order GetOrder(int id)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(List<OrderItem>));
-            using (FileStream fs=new FileStream("s.xml", FileMode.Create))
+            return orders.Where(o => o.orderID== id).FirstOrDefault();
+        }
+        //添加订单
+        public void AddOrder(Order order)
+        {
+            if (orders.Contains(order))
+                throw new ApplicationException($"添加错误: 订单{order.orderID} 已经存在了!");
+            orders.Add(order);
+        }
+        //删除订单
+        public void RemoveOrder(int orderId)
+        {
+            Order order = GetOrder(orderId);
+            if (order != null)
             {
-                xs.Serialize(fs, o.orders);
-               
+                orders.Remove(order);
             }
         }
-        public  static void Import(Order o)
+        //更新订单
+        public void UpdateOrder(Order newOrder)
         {
-            XmlSerializer xs = new XmlSerializer(typeof(List<OrderItem>));
-            using (FileStream fs = new FileStream("s.xml", FileMode.Open))
+            Order oldOrder = GetOrder(newOrder.orderID);
+            if (oldOrder == null)
+                throw new ApplicationException($"修改错误：订单 {newOrder.orderID} 不存在!");
+            orders.Remove(oldOrder);
+            orders.Add(newOrder);
+        }
+        //默认排序
+        public void Sort()
+        {
+            orders.Sort();
+        }
+        //通过指定函数来排序
+        public void Sort(Func<Order, Order, int> func)
+        {
+            Orders.Sort((o1, o2) => func(o1, o2));
+        }
+        //导出为xml文件
+        public void Export(String fileName)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
+            using (FileStream fs = new FileStream(fileName, FileMode.Create))
             {
-                o.addOrderItems((List<OrderItem>)xs.Deserialize(fs));   
+                xs.Serialize(fs, Orders);
             }
-            
+        }
+        //由xml文件导入
+        public void Import(string path)
+        {
+            XmlSerializer xs = new XmlSerializer(typeof(List<Order>));
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                List<Order> temp = (List<Order>)xs.Deserialize(fs);
+                temp.ForEach(order => {
+                    if (!orders.Contains(order))
+                    {
+                        orders.Add(order);
+                    }
+                });
+            }
         }
     } 
 }

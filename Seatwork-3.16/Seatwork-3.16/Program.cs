@@ -64,12 +64,12 @@ namespace Seatwork_3._16
             //Console.WriteLine("按总金额排序：");
             //Console.WriteLine(o1.ToString());
 
-            OrderService.Export(o1);
+           /* OrderService.Export();
             Console.WriteLine("序列化完成");
             Console.WriteLine(File.ReadAllText("s.xml"));
             OrderService.Import(o2);
             Console.WriteLine("反序列化的结果");
-            Console.WriteLine(o2.ToString());
+            Console.WriteLine(o2.ToString());*/
             
 
         }

@@ -22,34 +22,38 @@ namespace Seatwork_4._6
 
     public partial class Form1 : Form
     {
+        OrderService orderService;
+        BindingSource fieldsBS = new BindingSource();
+        public String Keyword { get; set; }
         public Form1()
         {
             InitializeComponent();
 
-            List<Order> GoodList = new List<Order>()
-            {
-                new Order()
-                {
-                    orderID=1,
-                    employee="A",
-                    cumstomer="B"
-                },
-                new Order()
-                {
-                    orderID=2,
-                    employee="A",
-                    cumstomer="C"
-                },
-                new Order()
-                {
-                    orderID=3,
-                    employee="B",
-                    cumstomer="C"
-                }
-            };
-            orderBindingSource.DataSource = GoodList;
+            orderService = new OrderService();
+            Order o1 = new Order(1,"张三","李四");
+            Order o2 = new Order(2, "张三", "王五");
+            Order o3 = new Order(3, "李四", "王五");
+            orderService.AddOrder(o1);
+            orderService.AddOrder(o2);
+            orderService.AddOrder(o3);
+            OrderItem oi1 = new OrderItem(001, "书本", 1000, 5);
+            OrderItem oi2 = new OrderItem(002, "钢笔", 20000, 8);
+            OrderItem oi3 = new OrderItem(003, "衣服", 50, 100);
+            OrderItem oi4 = new OrderItem(004, "电脑", 30, 4000);
+            o1.addOrderItems(oi1);
+            o1.addOrderItems(oi2);
+            o2.addOrderItems(oi3);
+            o3.addOrderItems(oi4);
+            orderBindingSource.DataSource = orderService.Orders;
+            orderItemBindingSource = orderBindingSource;
+            orderItemBindingSource.DataMember = "orderItems";
+
+
         }
 
-        
+        private void button_new_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
