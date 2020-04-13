@@ -22,7 +22,7 @@ namespace Seatwork_4._6
 
     public partial class Form1 : Form
     {
-        OrderService orderService;
+        public static OrderService orderService;
         BindingSource fieldsBS = new BindingSource();
         public String Keyword { get; set; }
         public Form1()
@@ -45,15 +45,104 @@ namespace Seatwork_4._6
             o2.addOrderItems(oi3);
             o3.addOrderItems(oi4);
             orderBindingSource.DataSource = orderService.Orders;
-            orderItemBindingSource = orderBindingSource;
-            orderItemBindingSource.DataMember = "orderItems";
-
-
         }
-
+        //更新
+        private void QueryAll()
+        {
+            orderBindingSource.DataSource = orderService.Orders;
+            orderBindingSource.ResetBindings(false);
+            itemsBindingSource.ResetBindings(false);
+        }
+        //增
         private void button_new_Click(object sender, EventArgs e)
         {
+            Form2 form2 = new Form2(true,new Order());
+            if (form2.ShowDialog() == DialogResult.OK)
+            {
+                
+                QueryAll();
+            }
+        }
+        //删
+        private void button_delete_Click(object sender, EventArgs e)
+        {
+            Order order = orderBindingSource.Current as Order;
+            if (order == null)
+            {
+                MessageBox.Show("请选择一个订单进行删除");
+                return;
+            }
+            orderService.RemoveOrder(order.orderID);
+            QueryAll();
+        }
+        //改
+        private void button_set_Click(object sender, EventArgs e)
+        {
+            Order order = orderBindingSource.Current as Order;
+            if (order == null)
+            {
+                MessageBox.Show("请选择一个订单进行修改");
+                return;
+            }
+            Form2 form2 = new Form2(false,order);
+            if (form2.ShowDialog() == DialogResult.OK)
+            {
+                orderService.UpdateOrder(form2.cOrder);
+                QueryAll();
+            }
+        }
+        //查
+        private void button_get_Click(object sender, EventArgs e)
+        {
+            Keyword = textBox1.Text;
+            switch (comboBox1.SelectedIndex)
+            {
+                case 0://所有订单
+                    orderBindingSource.DataSource = orderService.Orders;
+                    break;
+                case 1://根据ID查询
+                    int.TryParse(Keyword, out int id);
+                    Order order = orderService.GetOrder((int)id);
+                    List<Order> result = new List<Order>();
+                    if (order != null) result.Add(order);
+                    orderBindingSource.DataSource = result;
+                    break;
+                case 2://根据订货人查询
+                    orderBindingSource.DataSource = orderService.QueryOrdersByCustomerName(Keyword);
+                    break;
+                case 3://根据发货人查询
+                    orderBindingSource.DataSource = orderService.QueryOrdersByEmployeeName(Keyword);
+                    break;
+            }
+            orderBindingSource.ResetBindings(true);
+        }
 
+        private void 导出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Export";
+            saveFileDialog.Filter = "XML File|*.xml";
+            saveFileDialog.RestoreDirectory = true;
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = System.IO.Path.GetFullPath(saveFileDialog.FileName);
+                orderService.Export(path);
+                MessageBox.Show("Successfully Exported!");
+            }
+        }
+
+        private void 导入ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Open";
+            openFileDialog.Filter = "XML File|*.xml";
+            openFileDialog.RestoreDirectory = true;
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string path = System.IO.Path.GetFullPath(openFileDialog.FileName);
+                orderService.Import(path);
+                orderBindingSource.ResetBindings(false);
+            }
         }
     }
 }

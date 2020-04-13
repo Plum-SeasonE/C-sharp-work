@@ -14,49 +14,32 @@ namespace Seatwork_4._6
     public partial class Form2 : Form
     {
         private bool mode;//true 为新增，false为修改
-        private Order cOrder;//目前的订单
-        public string orderID{ get; set; }
-        public string customer { get; set; }
-        public string empolyee { get; set; }
+        public Order cOrder { get; set; }//目前的订单
+
+        //窗口初始化
         public Form2(bool mode,Order o)
         {
             InitializeComponent();
             this.mode = mode;
-            if(mode)
-            {
-                cOrder = o.Clone();      //深克隆，避免直接操作原数据           
-            }
-            else
-            {
-                cOrder = new Order();
-            }
+             cOrder = o.Clone();
+   
         }
-
-        private void button_creat_Click(object sender, EventArgs e)
+         private void Form2_Load(object sender, EventArgs e)
         {
-
-            /*if (mode)
-            {
-                Form1.OrderList.Add(cOrder);
-            }
-            else
-            {
-                Form1.OrderList.Remove();
-            }
-            /*private void btnComfirm_Click(object sender, EventArgs e)
+            orderBindingSource.DataSource = cOrder; 
+            textBoxID.DataBindings.Add("Text", cOrder, "orderID");
+            textBoxCustomer.DataBindings.Add("Text", cOrder, "customer");
+            textBoxemployee.DataBindings.Add("Text", cOrder, "employee");
+            
+        }
+        private void buttonCreat_Click(object sender, EventArgs e)
         {
-            switch (mode)
-            {
-                case 0:
-                    service.UpdateOrder(currentOrder.OrderCode, currentOrder);              //模式代码为0更新订单
-                    break;
-                default:
-                    service.AddOrder(currentOrder);                                         //其他值新增订单
-                    break;
-            }
+            if (mode)
+                Form1.orderService.AddOrder(cOrder);
+            else Form1.orderService.UpdateOrder(cOrder);
             DialogResult = DialogResult.OK;
-        }*/
-
         }
+
+        
     }
 }

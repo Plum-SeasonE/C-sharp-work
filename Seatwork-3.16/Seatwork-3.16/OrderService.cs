@@ -54,6 +54,27 @@ namespace Seatwork_3._16
             orders.Remove(oldOrder);
             orders.Add(newOrder);
         }
+        //查询订单
+        public List<Order> QueryOrdersByOrderID(int orderId)
+        {
+            var query = orders
+                    .Where(order => order.orderID == orderId);
+            return query.ToList();
+        }
+        public List<Order> QueryOrdersByCustomerName(string customerName)
+        {
+            return orders
+                .Where(order => order.customer.Equals( customerName))
+                .OrderBy(o => o.orderID)
+                .ToList();
+        }
+        public List<Order> QueryOrdersByEmployeeName(string employeeName)
+        {
+            return orders
+                .Where(order => order.employee.Equals( employeeName))
+                .OrderBy(o => o.orderID)
+                .ToList();
+        }
         //默认排序
         public void Sort()
         {

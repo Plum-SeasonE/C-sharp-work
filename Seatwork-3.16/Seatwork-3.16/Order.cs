@@ -11,29 +11,36 @@ namespace Seatwork_3._16
     {
         public int orderID { get; set; }
         public string employee { get; set; }
-        public string cumstomer { get; set; }
-        public List<OrderItem> orderItems = new List<OrderItem>();
+        public string customer { get; set; }
+        public List<OrderItem> orderItems ;
 
-        public Order() { }
-        public Order(int id,string Employee,string Customer)
+        public Order()
+        {
+            orderItems = new List<OrderItem>();
+        }
+            public Order(int id,string Employee,string Customer)
         {
             orderID = id;
             employee = Employee;
-            cumstomer = Customer;
+            customer = Customer;
+            orderItems = new List<OrderItem>();
         }
         public Order(Order o)
         {
             orderID = o.orderID;
             employee = o.employee;
-            cumstomer = o.cumstomer;
+            customer = o.customer;
             o.addOrderItems(o.orderItems);
         }
 
-        
+        public List<OrderItem> Items
+        {
+            get { return orderItems; }
+        }
         //添加
         public void addOrderItems(OrderItem oi)
         {
-            orderItems.Add(oi);
+            Items.Add(oi);
         }
         public void addOrderItems(List<OrderItem> oi)
         {
@@ -59,8 +66,9 @@ namespace Seatwork_3._16
         }
         public override bool Equals(object obj)
         {
-            Order o = obj as Order;
-            return orderID==o.orderID;
+            var order = obj as Order;
+            return order != null &&
+                   orderID == order.orderID;
         }
         public override int GetHashCode()
         {
@@ -68,7 +76,7 @@ namespace Seatwork_3._16
         }
         public override string ToString()
         {
-            string order=$"订单号:{orderID}\t订货人:{cumstomer}\t发货人:{employee}\n";
+            string order=$"订单号:{orderID}\t订货人:{customer}\t发货人:{employee}\n";
             foreach(var oi in orderItems)
             {
                 order += oi.ToString();
@@ -80,7 +88,7 @@ namespace Seatwork_3._16
         {
             Order newOrder = new Order();
             newOrder.orderID = this.orderID;
-            newOrder.cumstomer = this.cumstomer;
+            newOrder.customer = this.customer;
             newOrder.employee = this.employee;
             for (int i = 0; i < this.orderItems.Count; i++)
             {
