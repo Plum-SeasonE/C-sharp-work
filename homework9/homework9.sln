@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1062
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "homework9", "homework9\homework9.csproj", "{A07CE8EA-4AB9-4667-9ECF-A4DB1CE73B28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrawlerWinform", "CrawlerWinform\CrawlerWinform.csproj", "{ADCE57BD-8E9A-4122-B153-95598132A130}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A07CE8EA-4AB9-4667-9ECF-A4DB1CE73B28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A07CE8EA-4AB9-4667-9ECF-A4DB1CE73B28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A07CE8EA-4AB9-4667-9ECF-A4DB1CE73B28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A07CE8EA-4AB9-4667-9ECF-A4DB1CE73B28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADCE57BD-8E9A-4122-B153-95598132A130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADCE57BD-8E9A-4122-B153-95598132A130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADCE57BD-8E9A-4122-B153-95598132A130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADCE57BD-8E9A-4122-B153-95598132A130}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A211D6BA-FB4C-4C68-AB52-5B9FFE27DBF6}
+	EndGlobalSection
+EndGlobal
